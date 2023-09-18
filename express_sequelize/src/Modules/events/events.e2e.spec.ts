@@ -52,28 +52,28 @@ describe('events', () => {
     expect(result[2].workshops[1].name).toBe('Navigating the function jungle');
   });
 
-  // it('GET /events/futureevents', async () => {
-  //   const date2 = format(addYears(new Date(), 1), 'yyyy');
-  //   const response = await request(Server.getApp().app)
-  //     .get('/events/futureevents')
-  //     .expect(200);
+  it('GET /events/futureevents', async () => {
+    const date2 = format(addYears(new Date(), 1), 'yyyy');
+    const response = await request(Server.getApp().app)
+      .get('/events/futureevents')
+      .expect(200);
 
-  //   const result = response.body;
+    const result = response.body;
 
-  //   expect(result.length).toBe(2);
-  //   expect(result[0].name).toBe('Laravel convention ' + date2);
-  //   expect(result[0].workshops[0].name).toBe(
-  //     'The new Eloquent - load more with less',
-  //   );
-  //   expect(result[0].workshops[1].name).toBe(
-  //     'AutoEx - handles exceptions 100% automatic',
-  //   );
-  //   expect(result[1].name).toBe('React convention ' + date2);
-  //   expect(result[1].workshops[0].name).toBe(
-  //     '#NoClass pure functional programming',
-  //   );
-  //   expect(result[1].workshops[1].name).toBe('Navigating the function jungle');
-  // });
+    expect(result.length).toBe(2);
+    expect(result[0].name).toBe('Laravel convention ' + date2);
+    expect(result[0].workshops[0].name).toBe(
+      'The new Eloquent - load more with less',
+    );
+    expect(result[0].workshops[1].name).toBe(
+      'AutoEx - handles exceptions 100% automatic',
+    );
+    expect(result[1].name).toBe('React convention ' + date2);
+    expect(result[1].workshops[0].name).toBe(
+      '#NoClass pure functional programming',
+    );
+    expect(result[1].workshops[1].name).toBe('Navigating the function jungle');
+  });
 
   afterAll(() => {
     return Server.close();
