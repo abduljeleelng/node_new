@@ -1,3 +1,4 @@
+import { Op } from 'sequelize';
 import Event from './entities/event.entity';
 
 import {HttpException, HttpStatus, HttpCode, InternalServerErrorException} from '@nestjs/common'
@@ -162,6 +163,18 @@ export class EventsService {
     ```
      */
   async getFutureEventWithWorkshops() {
-    throw new Error('TODO task 2');
+    // throw new Error('TODO task 2');
+    try {
+      return await Event.findAll(
+        {
+          where: {
+            '$workshops.start$':{[Op.gt]: new Date()} // "2022-28-21 10:28:45"
+          },
+          include:'workshops',
+        }
+      );
+    } catch (error) {
+      throw new InternalServerErrorException('Errors in processing your request, please try again!');
+    }
   }
 }
