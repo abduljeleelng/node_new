@@ -1,5 +1,7 @@
 import Event from './entities/event.entity';
 
+import {HttpException, HttpStatus, HttpCode, InternalServerErrorException} from '@nestjs/common'
+
 
 export class EventsService {
 
@@ -85,7 +87,12 @@ export class EventsService {
      */
 
   async getEventsWithWorkshops() {
-    throw new Error('TODO task 1');
+    // throw new Error('TODO task 1');
+    try {
+      return await Event.findAll({ include:['workshops']});
+    } catch (error) {
+      throw new InternalServerErrorException('Errors in processing your request, please try again!');
+    }
   }
 
   /* TODO: complete getFutureEventWithWorkshops so that it returns events with workshops, that have not yet started
