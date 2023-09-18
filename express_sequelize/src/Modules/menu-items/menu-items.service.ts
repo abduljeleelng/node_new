@@ -1,3 +1,6 @@
+import {HttpException, HttpStatus, HttpCode, InternalServerErrorException} from '@nestjs/common'
+import MenuItem from './entities/menu-item.entity';
+
 export class MenuItemsService {
 
   /* TODO: complete getMenuItems so that it returns a nested menu structure
@@ -76,6 +79,20 @@ export class MenuItemsService {
   */
 
   async getMenuItems() {
-    throw new Error('TODO in task 3');
+    // throw new Error('TODO in task 3');
+    try {
+        const menuItems = await MenuItem.findAll({
+            include: [
+              {
+                model: MenuItem,
+                as: 'children',
+                attributes: ['id', 'name', 'url', 'parentId'],
+              },
+            ],
+        });
+        return menuItems;
+      } catch (error) {
+        throw new InternalServerErrorException('Errors in processing your request, please try again!');
+      }
   }
 }
